@@ -21,7 +21,7 @@ def get_db():
         db.close()
 
 
-@app.post("/cats/", response_model=schemas.CatBase)
+@app.post("/cats/", response_model=schemas.Cat)
 def create_cat(cat: schemas.CatBase, db: Session = Depends(get_db)):
     """
     creates a cat in the db

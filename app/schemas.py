@@ -18,16 +18,3 @@ class CatUpdate(BaseModel):
     color: str | None = None
 
 
-# class CatBase(BaseModel):
-#     id: int
-
-#     class Config:
-#         orm_mode = True
-    
-
-# class CatCreate(CatBase):
-#     name: str
-#     color: str
-
-# # class Cat(CatBase):
-
