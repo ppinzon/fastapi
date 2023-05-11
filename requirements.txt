@@ -1,2 +1,6 @@
 fastapi[all]
 SQLAlchemy
+alembic
+celery
+redis
+flower

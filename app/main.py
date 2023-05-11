@@ -4,10 +4,13 @@ import models
 import schemas
 from database import SessionLocal, engine
 from sqlalchemy.orm import Session
+from worker import celery_logger
 
 from fastapi import Depends, FastAPI, HTTPException
 
 models.Base.metadata.create_all(bind=engine)
+
+
 
 app = FastAPI()
 
@@ -19,6 +22,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 
 @app.post("/cats/", response_model=schemas.Cat)
@@ -35,6 +39,7 @@ def read_cats(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     Returns all cats stored in DB
     """
     cats = crud.get_cats(db, skip=skip, limit=limit)
+    celery_logger.delay('GET /cats', "200")
     return cats
 
 
